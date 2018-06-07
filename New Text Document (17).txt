@@ -1,0 +1,65 @@
+float state[12];
+float myPos[3];
+float vectorBetween[3];
+int distance;
+float a[3];
+void init(){
+    a[0]=0.6;
+    a[1]=0.4;
+    a[2]=0;
+}
+void loop(){
+    DEBUG(("Has reached position: %d",hasReachedPosition(a)));
+    api.setPositionTarget(a);
+}
+int hasReachedPosition(float target[3]) {
+    api.getMyZRState(state);
+    int hasReached;
+    for(int i=0;i<3;i++){
+        myPos[i]=state[i];
+    }
+    mathVecSubtract(vectorBetween,target,myPos,3);
+    distance=mathVecMagnitude(vectorBetween,3);
+    if(distance<=0.1){
+        hasReached = 1;
+    } else {
+        hasReached = 0;
+    }
+  // Check distance between currPosition and target. And set a vector threshold, 
+  // so we can decide whether it has "reached" the positon.
+  // hasReached is either 0 = FALSE 1 = TRUE
+  return hasReached;
+}
+
+
+	if (step == 0){
+	    target[0] = -0.7;
+	
+	if (mystate[0] > target[0]){
+	    api.setPositionTarget(sps2);
+	}
+	else{
+	    game.dropSPS();
+	    step++;
+	}  
+}
+	else if (step == 1){
+	    target[0] = 0.7;
+	
+	if (mystate[0] < target[0]){
+	    api.setPositionTarget(sps3);
+	}
+	else{
+	    game.dropSPS();
+	    step++;
+	} }
+else if(step==2){
+    api.setPositionTarget(item1);
+    api.setAttitudeTarget(item2);
+    game.dockItem();
+} if(game.hasItemBeenPickedUp(4)==true){step++;} 
+ //inside step 2
+if(step==3){
+    api.setVelocityTarget(zinfo);}
+    
+}//end of void loop
